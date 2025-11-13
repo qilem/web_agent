@@ -8,9 +8,7 @@
 
 ## Overview
 
-WAA (Web-App Agent) is a sophisticated agentic system that autonomously designs, codes, tests, and iterates on web applications. Simply provide natural language instructions, and WAA handles the rest—from writing frontend HTML/CSS/JavaScript to implementing backend Express servers with database integration.
-
-This project demonstrates the practical implementation of **machine programming** concepts: program synthesis, agentic workflows, tool-use patterns, and LLM-powered code generation.
+WAA (Web-App Agent) is a agentic system that autonomously designs, codes, tests, and iterates on web applications. Simply provide natural language instructions, and WAA handles the rest—from writing frontend HTML/CSS/JavaScript to implementing backend Express servers with database integration.
 
 ### Key Features
 
