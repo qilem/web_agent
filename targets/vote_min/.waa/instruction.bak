@@ -1,0 +1,63 @@
+# Voting Site (Username-based, One Vote Per Person)
+
+## Goal
+- Each user enters a username (no password).
+- Exactly one vote per username per poll.
+- If already voted, show chosen option and disable voting UI.
+
+## Stack & Rules
+- Node.js + Express + mysql2 + dotenv; frontend in `public/`, backend in `server/`.
+- Read DB config from `.env`: DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, PORT.
+- Make minimal changes; only create/edit files. Do NOT run npm or start servers.
+
+## Database — server/sql/schema.sql
+- Create tables if not exists:
+  -- poll(id INT PK AUTO_INCREMENT, question VARCHAR(255) NOT NULL)
+  -- poll_option(id INT PK AUTO_INCREMENT, poll_id INT NOT NULL, label VARCHAR(100) NOT NULL,
+     FOREIGN KEY(poll_id) REFERENCES poll(id) ON DELETE CASCADE)
+  -- vote(id BIGINT PK AUTO_INCREMENT, poll_id INT NOT NULL, option_id INT NOT NULL,
+     username VARCHAR(50) NOT NULL,
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     FOREIGN KEY(option_id) REFERENCES poll_option(id) ON DELETE CASCADE)
+- Ensure uniqueness: one vote per username per poll:
+  -- CREATE UNIQUE INDEX IF NOT EXISTS uniq_vote_username ON vote (poll_id, username);
+- Seed if empty:
+  -- poll: "Which gum flavor is best?"
+  -- options: "Mint","Strawberry","Grape","Cinnamon"
+
+## Backend
+- server/db.js:
+  - Create mysql2/promise pool from env.
+  - initDb(): run schema.sql (split by ';'), ensure unique index; seed default poll/options if empty.
+  - getPollWithCounts(username):
+    - return { poll, options:[{id,label,count}], me:{username, hasVoted, optionId} }
+  - insertVote(optionId, username):
+    - validate option belongs to existing poll; insert (poll_id, option_id, username)
+    - on duplicate key (poll_id, username), throw a clean error.
+
+- server/index.js:
+  - require('dotenv').config() at the top (before requiring db).
+  - express.json(), serve static from public/.
+  - GET /api/poll?username=<name> -> getPollWithCounts(username)
+  - POST /api/vote {username, optionId} -> insertVote; 409 on duplicate.
+
+## Frontend
+- public/index.html:
+  - Username input (#username) with hint: lowercase letters/digits/underscore, 3..20.
+  - Buttons for options; a results area; a message area.
+- public/style.css:
+  - Centered, simple modern styling.
+- public/app.js:
+  - Normalize username: trim + toLowerCase; regex ^[a-z0-9_]{3,20}$.
+  - Persist username in localStorage ('vote_username').
+  - loadPoll(): GET /api/poll?username=... -> render options, counts; if hasVoted, disable buttons and show chosen.
+  - on click: POST /api/vote with {username, optionId}; on 409 show "Already voted".
+
+## NPM
+- Assume deps already installed; do not run npm commands.
+
+## Termination
+- Stop when files exist with reasonable implementations and reflect:
+  - One vote per username (unique).
+  - GET /api/poll respects username and returns hasVoted/optionId.
+  - POST /api/vote returns 409 on duplicate.

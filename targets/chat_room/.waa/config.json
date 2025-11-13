@@ -1,0 +1,18 @@
+{
+  "llm_type": "gemini",
+  "model": "gemini-2.5-pro", 
+  "max_turns": 50,
+  "allowed_tools": [
+    "fs.write","fs.read","fs.edit","fs.delete",
+    "fs.mkdir","fs.rmdir","fs.ls",
+    "npm.init","npm.start","npm.stop","npm.status","npm.logs",
+    "todo.add","todo.list","todo.complete","todo.remove"
+  ],
+  "protected_files": [
+    ".waa/config.json",
+    ".waa/instruction.md",
+    ".waa/agent.log",
+    ".waa/server.log",
+    "tests/ui.test.js"
+  ]
+}

@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+:root {
+    --bg-color: #1a1a2e;
+    --primary-color: #0f3460;
+    --secondary-color: #16213e;
+    --accent-cyan: #00ffff;
+    --accent-purple: #e94560;
+    --text-color: #e0e0e0;
+    --font-family: 'Roboto', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+header#hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    color: var(--accent-cyan);
+    text-shadow: 0 0 10px var(--accent-cyan);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    color: var(--accent-purple);
+}
+
+main {
+    padding: 2rem;
+}
+
+section {
+    padding: 4rem 2rem;
+    margin-bottom: 2rem;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+section.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent-cyan);
+    text-align: center;
+}
+
+.skills-grid, .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.skill-card, .project-card {
+    background-color: var(--primary-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--accent-purple);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.skill-card:hover, .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px var(--accent-purple);
+}
+
+.project-card h3 {
+    color: var(--accent-cyan);
+    margin-bottom: 0.5rem;
+}
+
+.tech-tags {
+    margin-top: 1rem;
+}
+
+.tech-tags span {
+    background-color: var(--accent-purple);
+    color: var(--bg-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--secondary-color);
+}
+
+footer a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1.2rem;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+footer a:hover {
+    color: var(--accent-purple);
+    text-shadow: 0 0 5px var(--accent-purple);
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "llm_type": "gemini",
+    "model": "gemini-2.5-pro",
+    "max_turns": 50,
+    "protected_files": [
+        ".waa/config.json",
+        ".waa/instruction.md",
+        ".waa/agent.log",
+        ".waa/server.log",
+        "tests/ui.test.js"
+    ]
+}
