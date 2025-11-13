@@ -364,9 +364,6 @@ def initialize_tool_registry(self):
 ```
 
 
-## acknowledgement
-
-This project is based on https://github.com/machine-programming/assignment-3
 
 
 ---
